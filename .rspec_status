@@ -1,0 +1,7 @@
+example_id                                        | status | run_time        |
+------------------------------------------------- | ------ | --------------- |
+./spec/fireauth/authentication_spec.rb[1:1:1:1:1] | passed | 0.01406 seconds |
+./spec/fireauth/authentication_spec.rb[1:1:2:1:1] | passed | 0.00593 seconds |
+./spec/fireauth/authentication_spec.rb[1:1:2:2:1] | passed | 0.00182 seconds |
+./spec/fireauth/configuration_spec.rb[1:1:1]      | passed | 0.00008 seconds |
+./spec/fireauth/configuration_spec.rb[1:2:1]      | passed | 0.00007 seconds |

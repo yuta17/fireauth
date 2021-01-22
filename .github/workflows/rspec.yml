@@ -1,0 +1,45 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v1
+        id: cache
+        with:
+          path: ~/local/rubies
+          key: ruby-3.0.0
+          restore-keys: |
+            ruby-3.0.0
+      - uses: ruby/setup-ruby@v1
+        id: ruby
+        with:
+          ruby-version: 3.0.0
+          bundler-cache: true
+
+      - name: install bundler
+        run: gem install bundler
+
+      - name: Install dependent libralies
+        run: sudo apt-get install libpq-dev
+
+      - name: Cache gems
+        uses: actions/cache@preview
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
+
+      - name: Bundle install
+        run: bundle install --jobs 4 --retry 3
+
+      # - name: Run Rubocop
+      #   run: |
+      #     bundle exec rubocop
+
+      - name: Run rspec
+        run: bundle exec rspec
